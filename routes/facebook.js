@@ -28,4 +28,33 @@ router.get("/",  async (req, res) => {
 
 });
 
+router.delete("/:id", (req, res) => {
+
+  console.log("req", req.params);
+  Facebook.deleteOne({ _id: req.params.id })
+    .then(() => {
+      res.status(200).json({
+        message: "Deleted!",
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
+});
+
+router.put("/:id", (req, res) => {
+  console.log("req", req.body.name);
+  const newData = new Facebook({
+    _id: req.params.id,
+    name: req.body.name,
+  });
+  Facebook.updateOne({ _id: req.params.id }, newData).then(() => {
+    res.status(201).json({
+      message: "Updated successfully!",
+    });
+  });
+});
+
 module.exports = router;
