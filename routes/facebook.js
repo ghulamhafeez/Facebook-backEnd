@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router("express");
 const Facebook = require("../models/facebook");
 
-
 // Creating One
 router.post("/", (req, res) => {
-  console.log("param", req.body, res.body);
 
   const data = { name: req.body.name };
 
@@ -16,7 +14,7 @@ router.post("/", (req, res) => {
       res?.send("item saved to database");
     })
     .catch((err) => {
-      console.log("err", err);
+
       res?.status(400).send("unable to save to database");
     });
 });
@@ -30,7 +28,6 @@ router.get("/",  async (req, res) => {
 
 router.delete("/:id", (req, res) => {
 
-  console.log("req", req.params);
   Facebook.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
@@ -45,7 +42,7 @@ router.delete("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  console.log("req", req.body.name);
+
   const newData = new Facebook({
     _id: req.params.id,
     name: req.body.name,
