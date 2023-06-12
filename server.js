@@ -13,6 +13,7 @@ mongoose.set("strictQuery", false);
 
 app.use(express.json());
 app.use(cors());
+app.use('/public', express.static('public'));
 app.use("/post", facebookRouter);
 app.get("/message", (req, res) => {
   res.json({ message: "Hello from server!" });

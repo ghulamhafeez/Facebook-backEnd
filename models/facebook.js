@@ -5,6 +5,10 @@ const facebookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  file: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Facebook", facebookSchema);
