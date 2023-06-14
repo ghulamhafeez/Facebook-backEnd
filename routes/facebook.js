@@ -3,23 +3,23 @@ const router = express.Router("express");
 const multer = require("multer");
 const Facebook = require("../models/facebook");
 
-const DIR = "./public/";
+// const DIR = "./public/";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    console.log("Called1",file)
-    cb(null, DIR);
-  },
-  filename: (req, file, cb) => {
-    console.log("Called2",file)
-    const fileName = file.originalname.toLowerCase().split(" ").join("-");
-    cb(null, uuidv4() + "-" + fileName);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     console.log("Called1",file)
+//     cb(null, DIR);
+//   },
+//   filename: (req, file, cb) => {
+//     console.log("Called2",file)
+//     const fileName = file.originalname.toLowerCase().split(" ").join("-");
+//     cb(null, uuidv4() + "-" + fileName);
+//   },
+// });
 
-var upload = multer({
-  storage: storage,
-});
+// var upload = multer({
+//   storage: storage,
+// });
 
 // var multerConfig = multer.diskStorage({
 
@@ -43,18 +43,25 @@ var upload = multer({
 //     storage:multerConfig,
 //     fileFilter:isImage
 //   })
+const storage = multer.diskStorage({
+  destination: "./public/",
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
+const upload = multer({ storage: storage });
 // Creating One
 router.post("/", upload.single("file"), (req, res) => {
-  console.log('Boyd', req.body)
-  console.log("name", req.body);
+  console.log("Boyd", req.body);
   console.log("Flie", req.file);
+  console.log("OFlie", req.file.originalname);
   console.log("name", req.body.name);
   const url = req.protocol + "://" + req.get("host");
 
   const data = {
     name: req.body.name,
-    file: url + "public/" + req.body.file.filename,
+    file: url + "public/" + req?.file?.originalname,
   };
 
   var myData = new Facebook(data);
