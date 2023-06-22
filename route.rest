@@ -12,3 +12,8 @@ DELETE http://localhost:3000/post/647f1b36641c56d1ac97a843
 
 ###
 PUT http://localhost:3000/post/647f1b36641c56d1ac97a843
+
+###
+POST http://localhost:3000/post
+###
+POST http://localhost:3000/login
