@@ -8,12 +8,20 @@ POST http://localhost:3000/post
 GET http://localhost:3000/post
 
 ###
+GET http://localhost:3000/user
+###
 DELETE http://localhost:3000/post/647f1b36641c56d1ac97a843
 
 ###
+
+DELETE http://localhost:3000/user/649584309e832d0bc9081002
+###
+
 PUT http://localhost:3000/post/647f1b36641c56d1ac97a843
 
 ###
-POST http://localhost:3000/post
+POST http://localhost:3000/user
 ###
-POST http://localhost:3000/post
+POST http://localhost:3000/user
+
+POST http://localhost:3000/friend

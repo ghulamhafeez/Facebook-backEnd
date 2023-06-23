@@ -2,10 +2,6 @@ const express = require("express");
 const router = express.Router("express");
 const multer = require("multer");
 const Facebook = require("../models/facebook");
-const User = require("../models/facebook");
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
-// const { check, validationResult } = require("express-validator");
 
 const storage = multer.diskStorage({
   destination: "./public/",
@@ -41,6 +37,7 @@ router.get("/", async (req, res) => {
   res.send(data);
 });
 
+
 // Delete One
 router.delete("/:id", (req, res) => {
   Facebook.deleteOne({ _id: req.params.id })
@@ -56,6 +53,8 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+
+
 // Update One
 router.put("/:id", (req, res) => {
   const newData = new Facebook({
@@ -69,47 +68,5 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// SignUp
-router.post("/signup", async (req, res) => {
-  console.log("req", req, req.body);
-
-  const user = await User.create({
-    userName: req.body.userName,
-    email: req.body.email,
-    password: req.body.password,
-  });
-  return res.status(200).json(user);
-  // var myData = new Facebook(user);
-  // myData
-  //   .save()
-  //   .then((item) => {
-  //     res?.send("User successfully SignUp");
-  //   })
-  //   .catch((err) => {
-  //     res?.status(400).send("Unable to SignUp");
-  //   });
-});
-
-// LogIn
-
-router.post("/login", async (req, res) => {
-  console.log("req ", req, req.body);
-  try {
-    const user = await User.findOne({ userName: req.body.userName });
-    console.log("req ", user, req.body);
-    if (user) {
-      const result = req.body.password === user.password;
-      if (result) {
-        res.render("secret");
-      } else {
-        res.status(400).json({ error: "password doesn't match" });
-      }
-    } else {
-      res.status(400).json({ error: "User doesn't exist" });
-    }
-  } catch (error) {
-    res.status(400).json({ error });
-  }
-});
 
 module.exports = router;
